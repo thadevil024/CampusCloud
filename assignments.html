@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Assignment Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= ASSIGNMENT MANAGEMENT ================= -->
+
+    <h1>📝 Assignment Management</h1>
+
+
+    <!-- ================= UPLOAD ASSIGNMENT ================= -->
+
+    <h2>Upload New Assignment</h2>
+
+    <hr>
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+        <input type="text"
+               name="title"
+               placeholder="Assignment Title"
+               required>
+
+        <input type="text"
+               name="subject"
+               placeholder="Subject"
+               required>
+
+        <input type="text"
+               name="semester"
+               placeholder="Semester"
+               required>
+
+        <input type="text"
+               name="branch"
+               placeholder="Branch"
+               required>
+
+        <input type="date"
+               name="due_date"
+               required>
+
+        <textarea
+            name="description"
+            placeholder="Assignment Description"
+            rows="5"
+            required></textarea>
+
+        <input type="file"
+               name="assignment_file"
+               accept=".pdf,.doc,.docx"
+               required>
+
+        <button type="submit">
+            📤 Upload Assignment
+        </button>
+
+    </form>
+
+
+    <hr>
+
+
+    <!-- ================= UPLOADED ASSIGNMENTS ================= -->
+
+    <h2>Uploaded Assignments</h2>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No</th>
+                    <th>Title</th>
+                    <th>Subject</th>
+                    <th>Semester</th>
+                    <th>Branch</th>
+                    <th>Due Date</th>
+                    <th>Download</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for assignment in assignments %}
+
+                <tr>
+
+                    <td>{{ loop.index }}</td>
+
+                    <td>{{ assignment.title }}</td>
+
+                    <td>{{ assignment.subject }}</td>
+
+                    <td>{{ assignment.semester }}</td>
+
+                    <td>{{ assignment.branch }}</td>
+
+                    <td>{{ assignment.due_date }}</td>
+
+                    <td>
+
+                        <a href="{{ url_for('static',
+                        filename='uploads/assignments/' + assignment.file_name) }}"
+                           target="_blank">
+
+                            📥 Download
+
+                        </a>
+
+                    </td>
+
+                    <td>
+
+                        <a href="/delete-assignment/{{ assignment.id }}"
+                           onclick="return confirm('Delete this assignment?')">
+
+                            🗑 Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            🏠 Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

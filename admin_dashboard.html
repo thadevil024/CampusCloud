@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= ADMIN DASHBOARD ================= -->
+
+    <h1>Admin Dashboard</h1>
+
+    <h2>Welcome {{ session['user_name'] }}</h2>
+
+    <p>
+        <b>Role:</b> {{ session['role'] }}
+    </p>
+
+    <hr>
+
+
+    <!-- ================= SYSTEM STATISTICS ================= -->
+
+    <h2>System Statistics</h2>
+
+    <div class="stats-container">
+
+        <div class="card">
+            <h3>{{ total_students }}</h3>
+            <p>Total Students</p>
+        </div>
+
+        <div class="card">
+            <h3>{{ total_admins }}</h3>
+            <p>Total Admins</p>
+        </div>
+
+        <div class="card">
+            <h3>{{ total_notices }}</h3>
+            <p>Total Notices</p>
+        </div>
+
+        <div class="card">
+            <h3>{{ total_lost_items }}</h3>
+            <p>Lost & Found</p>
+        </div>
+
+        <div class="card">
+            <h3>{{ total_expenses }}</h3>
+            <p>Total Expenses</p>
+        </div>
+
+    </div>
+
+
+    <!-- ================= ADMIN MANAGEMENT ================= -->
+
+    <h2>Admin Management</h2>
+
+    <div class="admin-links">
+
+        <a href="/manage-users">
+            👨‍🎓 Manage Students
+        </a>
+
+        <a href="/admin/teachers">
+            👨‍🏫 Manage Teachers
+        </a>
+
+        <a href="/admin/notices">
+            📢 Manage Notices
+        </a>
+
+        <a href="/admin/notes">
+            📚 Manage Notes
+        </a>
+
+        <a href="/admin/papers">
+            📄 Manage Old Papers
+        </a>
+
+        <a href="/admin/student-requests">
+            📩 Student Requests
+        </a>
+
+        <a href="/admin/gallery">
+            🖼️ Gallery Management
+        </a>
+
+        <a href="/admin/payments">
+            💳 Payment Management
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

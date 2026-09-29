@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Requests - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📩 Student Requests</h1>
+
+    <p>
+        Yahan students dwara bheji gayi Notes,
+        Question Papers aur Study Material ki requests dikhengi.
+    </p>
+
+    <hr>
+
+    {% if requests %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>S.No.</th>
+                    <th>Student Name</th>
+                    <th>College / University</th>
+                    <th>Course</th>
+                    <th>Semester</th>
+                    <th>Subject</th>
+                    <th>Request Type</th>
+                    <th>Requirement</th>
+                    <th>Request Date</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for req in requests %}
+
+                <tr>
+
+                    <td>{{ loop.index }}</td>
+
+                    <td>{{ req.name }}</td>
+
+                    <td>{{ req.institution }}</td>
+
+                    <td>{{ req.course }}</td>
+
+                    <td>{{ req.semester }}</td>
+
+                    <td>{{ req.subject }}</td>
+
+                    <td>{{ req.request_type }}</td>
+
+                    <td>{{ req.requirement }}</td>
+
+                    <td>
+                        {{ req.request_date.strftime('%d-%m-%Y %H:%M') }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-message">
+
+        <h2>📭 No Student Requests</h2>
+
+        <p>
+            Abhi tak kisi student ne koi request nahi bheji hai.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            ⬅️ Back to Admin Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

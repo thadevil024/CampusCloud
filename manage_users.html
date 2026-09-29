@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= STUDENT MANAGEMENT ================= -->
+
+    <h1>👨‍🎓 Student Management</h1>
+
+    <p>
+        Welcome {{ session['user_name'] }}
+    </p>
+
+    <h3>
+        Total Students : {{ students|length }}
+    </h3>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+
+    <!-- ================= STUDENT TABLE ================= -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Parent Name</th>
+                    <th>Enrollment No.</th>
+                    <th>College</th>
+                    <th>Course</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>Email</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for student in students %}
+
+                <tr>
+
+                    <td>{{ loop.index }}</td>
+
+                    <td>{{ student.id }}</td>
+
+                    <td>{{ student.name }}</td>
+
+                    <td>{{ student.mobile }}</td>
+
+                    <td>{{ student.parent_name }}</td>
+
+                    <td>{{ student.enrollment_no }}</td>
+
+                    <td>{{ student.college }}</td>
+
+                    <td>{{ student.course }}</td>
+
+                    <td>{{ student.branch }}</td>
+
+                    <td>{{ student.semester }}</td>
+
+                    <td>{{ student.email }}</td>
+
+                    <td>
+
+                        <div class="table-actions">
+
+                            <a href="/edit-student/{{ student.id }}">
+                                ✏️ Edit
+                            </a>
+
+                            <a href="/delete-user/{{ student.id }}"
+                               onclick="return confirm('Are you sure you want to delete this student?');">
+                                🗑 Delete
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

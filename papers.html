@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Previous Year Papers Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= PAPERS MANAGEMENT ================= -->
+
+    <h1>📄 Previous Year Papers Management</h1>
+
+    <hr>
+
+
+    <!-- ================= UPLOAD NEW PAPER ================= -->
+
+    <h2>Upload New Paper</h2>
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+        <input type="text"
+               name="title"
+               placeholder="Paper Title"
+               required>
+
+        <input type="text"
+               name="university"
+               placeholder="University"
+               required>
+
+        <input type="text"
+               name="course"
+               placeholder="Course"
+               required>
+
+        <input type="text"
+               name="branch"
+               placeholder="Branch"
+               required>
+
+        <input type="text"
+               name="semester"
+               placeholder="Semester"
+               required>
+
+        <input type="text"
+               name="subject"
+               placeholder="Subject"
+               required>
+
+        <input type="text"
+               name="exam_year"
+               placeholder="Exam Year (e.g. 2023-24)"
+               pattern="[0-9]{4}-[0-9]{2}"
+               title="Enter year in format 2023-24"
+               required>
+
+        <select name="exam_type"
+                required>
+
+            <option value="">
+                Select Exam Type
+            </option>
+
+            <option value="Mid Semester">
+                Mid Semester
+            </option>
+
+            <option value="End Semester">
+                End Semester
+            </option>
+
+            <option value="Practical">
+                Practical
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+        <textarea
+            name="description"
+            placeholder="Description"
+            rows="4"></textarea>
+
+        <input type="file"
+               name="paper_file"
+               accept=".pdf"
+               required>
+
+        <button type="submit">
+            📤 Upload Paper
+        </button>
+
+    </form>
+
+
+    <hr>
+
+
+    <!-- ================= UPLOADED PAPERS ================= -->
+
+    <h2>Uploaded Papers</h2>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No</th>
+                    <th>Title</th>
+                    <th>University</th>
+                    <th>Subject</th>
+                    <th>Semester</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <th>View</th>
+                    <th>Delete</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for paper in papers %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+                    <td>
+                        {{ paper.title }}
+                    </td>
+
+                    <td>
+                        {{ paper.university }}
+                    </td>
+
+                    <td>
+                        {{ paper.subject }}
+                    </td>
+
+                    <td>
+                        {{ paper.semester }}
+                    </td>
+
+                    <td>
+                        {{ paper.exam_year }}
+                    </td>
+
+                    <td>
+
+                        {% if paper.status == "Approved" %}
+
+                            <span class="status-label status-approved">
+                                ✅ Approved
+                            </span>
+
+                        {% elif paper.status == "Rejected" %}
+
+                            <span class="status-label status-rejected">
+                                ❌ Rejected
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-label status-pending">
+                                ⏳ Pending
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <div class="table-actions">
+
+                            {% if paper.status != "Approved" %}
+
+                                <a href="/approve-paper/{{ paper.id }}"
+                                   onclick="return confirm('Approve this paper?')">
+
+                                    ✅ Approve
+
+                                </a>
+
+                            {% endif %}
+
+                            {% if paper.status != "Rejected" %}
+
+                                <a href="/reject-paper/{{ paper.id }}"
+                                   onclick="return confirm('Reject this paper?')">
+
+                                    ❌ Reject
+
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
+                    </td>
+
+                    <td>
+
+                        <a href="{{ url_for('static',
+                        filename='uploads/papers/' + paper.file_name) }}"
+                        target="_blank">
+
+                            👁 View
+
+                        </a>
+
+                    </td>
+
+                    <td>
+
+                        <a href="/delete-paper/{{ paper.id }}"
+                           onclick="return confirm('Delete this paper?')">
+
+                            🗑 Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            🏠 Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

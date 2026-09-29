@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Payment Management - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= PAYMENT MANAGEMENT ================= -->
+
+    <h1>💳 Payment Management</h1>
+
+    <hr>
+
+
+    <!-- ================= PAYMENT RECORDS ================= -->
+
+    {% if payments %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No.</th>
+                    <th>Student</th>
+                    <th>Payment For</th>
+                    <th>Amount</th>
+                    <th>Payment Method</th>
+                    <th>Transaction ID</th>
+                    <th>Status</th>
+                    <th>Date</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for payment in payments %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+                    <td>
+                        {{ payment.user.name }}
+                    </td>
+
+                    <td>
+                        {{ payment.payment_for }}
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(payment.amount) }}
+                    </td>
+
+                    <td>
+                        {{ payment.payment_method or "Not Available" }}
+                    </td>
+
+                    <td>
+                        {{ payment.transaction_id or "Not Generated" }}
+                    </td>
+
+                    <td>
+
+                        <strong>
+                            {{ payment.status }}
+                        </strong>
+
+                        <form method="POST"
+                              action="/admin/payment-status/{{ payment.id }}">
+
+                            <select name="status">
+
+                                {% if payment.status == "Pending" %}
+                                    <option value="Pending" selected>
+                                        Pending
+                                    </option>
+                                {% else %}
+                                    <option value="Pending">
+                                        Pending
+                                    </option>
+                                {% endif %}
+
+                                {% if payment.status == "Success" %}
+                                    <option value="Success" selected>
+                                        Success
+                                    </option>
+                                {% else %}
+                                    <option value="Success">
+                                        Success
+                                    </option>
+                                {% endif %}
+
+                                {% if payment.status == "Failed" %}
+                                    <option value="Failed" selected>
+                                        Failed
+                                    </option>
+                                {% else %}
+                                    <option value="Failed">
+                                        Failed
+                                    </option>
+                                {% endif %}
+
+                            </select>
+
+                            <button type="submit">
+                                Update
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                    <td>
+                        {{ payment.payment_date }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-message">
+        No payment records found.
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            ⬅ Back to Admin Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

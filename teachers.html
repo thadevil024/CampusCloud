@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Teachers</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= MANAGE TEACHERS ================= -->
+
+    <h1>👨‍🏫 Manage Teachers</h1>
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            ← Back to Admin Dashboard
+        </a>
+
+    </div>
+
+    <hr>
+
+
+    <!-- ================= GENERATE TEACHER CODE ================= -->
+
+    <h2>Generate Teacher Code</h2>
+
+    <p>
+        Generate a unique code and give it to the teacher.
+        The teacher will use this code while registering.
+    </p>
+
+    <form method="POST"
+          action="/admin/teachers/generate">
+
+        <button type="submit">
+            🔑 Generate Teacher Code
+        </button>
+
+    </form>
+
+
+    <hr>
+
+
+    <!-- ================= TEACHER CODES ================= -->
+
+    <h2>Teacher Codes</h2>
+
+    {% if codes %}
+
+        <div class="card">
+
+            {% for code in codes %}
+
+                <div class="list-item">
+
+                    <strong>Code:</strong>
+                    {{ code.code }}
+
+                    <br>
+
+                    {% if code.is_used %}
+
+                        <span class="status-label status-rejected">
+                            ❌ Used
+                        </span>
+
+                    {% else %}
+
+                        <span class="status-label status-approved">
+                            ✅ Available
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                {% if not loop.last %}
+                    <hr>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-message">
+            No teacher codes generated yet.
+        </div>
+
+    {% endif %}
+
+
+    <hr>
+
+
+    <!-- ================= REGISTERED TEACHERS ================= -->
+
+    <h2>Registered Teachers</h2>
+
+    {% if teachers %}
+
+        <div class="card">
+
+            {% for teacher in teachers %}
+
+                <div class="list-item">
+
+                    <strong>{{ teacher.name }}</strong>
+
+                    <br>
+
+                    Email:
+                    {{ teacher.email }}
+
+                </div>
+
+                {% if not loop.last %}
+                    <hr>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-message">
+            No teachers registered yet.
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

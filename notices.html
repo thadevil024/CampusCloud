@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Notices - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= NOTICE MANAGEMENT ================= -->
+
+    <h1>📢 Notice Management</h1>
+
+    <p>
+        Welcome {{ session['user_name'] }}
+    </p>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/manage-users">
+            👥 Manage Users
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+    <hr>
+
+
+    <!-- ================= EDIT NOTICE ================= -->
+
+    {% if edit_notice %}
+
+    <h2>✏️ Edit Notice</h2>
+
+    <form method="POST"
+          action="/edit-notice/{{ edit_notice.id }}">
+
+        <label>
+            <strong>Notice Title</strong>
+        </label>
+
+        <input type="text"
+               name="title"
+               value="{{ edit_notice.title }}"
+               required>
+
+
+        <label>
+            <strong>Notice Content</strong>
+        </label>
+
+        <textarea name="content"
+                  rows="6"
+                  required>{{ edit_notice.content }}</textarea>
+
+
+        <button type="submit">
+            💾 Save Changes
+        </button>
+
+    </form>
+
+    <div class="page-links">
+
+        <a href="/admin/notices">
+            ❌ Cancel
+        </a>
+
+    </div>
+
+    <hr>
+
+
+    <!-- ================= NEW NOTICE ================= -->
+
+    {% else %}
+
+    <h2>📢 Publish New Notice</h2>
+
+    <form method="POST">
+
+        <label>
+            <strong>Notice Title</strong>
+        </label>
+
+        <input type="text"
+               name="title"
+               placeholder="Enter notice title"
+               required>
+
+
+        <label>
+            <strong>Notice Content</strong>
+        </label>
+
+        <textarea name="content"
+                  rows="5"
+                  placeholder="Enter notice content"
+                  required></textarea>
+
+
+        <button type="submit">
+            📢 Publish Notice
+        </button>
+
+    </form>
+
+    <hr>
+
+    {% endif %}
+
+
+    <!-- ================= ALL NOTICES ================= -->
+
+    <h2>📋 All Notices</h2>
+
+    {% if notices %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No.</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Created By</th>
+                    <th>Role</th>
+                    <th>Date & Time</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for notice in notices %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+                    <td>
+                        {{ notice.title }}
+                    </td>
+
+                    <td>
+                        {{ notice.content }}
+                    </td>
+
+                    <td>
+                        {{ notice.user.name if notice.user else "Unknown" }}
+                    </td>
+
+                    <td>
+                        {{ notice.user.role if notice.user else "Unknown" }}
+                    </td>
+
+                    <td>
+                        {{ notice.upload_date.strftime('%d-%m-%Y %I:%M %p') if notice.upload_date else "N/A" }}
+                    </td>
+
+                    <td>
+
+                        <div class="table-actions">
+
+                            <a href="/edit-notice/{{ notice.id }}">
+                                ✏️ Edit
+                            </a>
+
+                            <a href="/delete-notice/{{ notice.id }}"
+                               onclick="return confirm('Are you sure you want to delete this notice?');">
+
+                                🗑️ Delete
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-message">
+        No notices available.
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================= BACK TO DASHBOARD ================= -->
+
+    <div class="page-links">
+
+        <a href="/admin_dashboard">
+            ⬅ Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
