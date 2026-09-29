@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Study Notes - CampusCloud</title>
+    <title>Previous Year Papers - CampusCloud</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -17,14 +17,14 @@
 
 <div class="container">
 
-    <h1 class="page-heading">📚 Study Notes</h1>
+    <h1 class="page-heading">📚 Previous Year Papers</h1>
 
 
-    <!-- Search Notes -->
+    <!-- Search Papers -->
 
     <div class="card">
 
-        <h2>🔍 Search Notes</h2>
+        <h2>🔍 Search Previous Papers</h2>
 
         <form method="GET">
 
@@ -61,8 +61,19 @@
             </div>
 
 
+            <div class="form-group">
+
+                <label>Exam Year</label>
+
+                <input type="text"
+                       name="exam_year"
+                       placeholder="2023-24">
+
+            </div>
+
+
             <button type="submit">
-                🔍 Search Notes
+                🔍 Search
             </button>
 
         </form>
@@ -70,9 +81,9 @@
     </div>
 
 
-    <!-- Notes List -->
+    <!-- Papers List -->
 
-    {% if notes %}
+    {% if papers %}
 
     <div class="table-container">
 
@@ -87,10 +98,8 @@
                     <th>Subject</th>
                     <th>Semester</th>
                     <th>Branch</th>
-                    <th>Description</th>
-                    <th>Upload Date</th>
-                    <th>Preview</th>
-                    <th>Download</th>
+                    <th>Year</th>
+                    <th>View</th>
 
                 </tr>
 
@@ -98,47 +107,28 @@
 
             <tbody>
 
-                {% for note in notes %}
+                {% for paper in papers %}
 
                 <tr>
 
                     <td>{{ loop.index }}</td>
 
-                    <td>{{ note.title }}</td>
+                    <td>{{ paper.title }}</td>
 
-                    <td>{{ note.subject }}</td>
+                    <td>{{ paper.subject }}</td>
 
-                    <td>{{ note.semester }}</td>
+                    <td>{{ paper.semester }}</td>
 
-                    <td>{{ note.branch }}</td>
+                    <td>{{ paper.branch }}</td>
 
-                    <td>{{ note.description }}</td>
-
-                    <td>
-                        {{ note.upload_date.strftime('%d-%m-%Y') }}
-                    </td>
+                    <td>{{ paper.exam_year }}</td>
 
                     <td>
 
-                        <a href="{{ url_for('static',
-                        filename='uploads/notes/' + note.file_name) }}"
-                           target="_blank"
+                        <a href="/view-paper/{{ paper.id }}"
                            class="btn">
 
-                            👁 Preview
-
-                        </a>
-
-                    </td>
-
-                    <td>
-
-                        <a href="{{ url_for('static',
-                        filename='uploads/notes/' + note.file_name) }}"
-                           target="_blank"
-                           class="btn">
-
-                            📥 Download
+                            👁 View
 
                         </a>
 
@@ -158,10 +148,10 @@
 
     <div class="empty-message">
 
-        <h2>📭 No Notes Found</h2>
+        <h2>📭 No Papers Found</h2>
 
         <p>
-            Abhi is category ke liye koi study note available nahi hai.
+            Abhi aapki search ke according koi previous year paper available nahi hai.
         </p>
 
     </div>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Guess Papers - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">🤖 AI Guess Papers</h1>
+
+    <div class="card">
+
+        <p>
+            Select your details and generate AI-based Guess Papers
+            from Previous Year Question Papers.
+        </p>
+
+    </div>
+
+
+    <!-- Guess Paper Form -->
+
+    <div class="card">
+
+        <h2>Generate Guess Paper</h2>
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>University</label>
+
+                <input type="text"
+                       name="university"
+                       placeholder="University"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Course</label>
+
+                <input type="text"
+                       name="course"
+                       placeholder="Course"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Branch</label>
+
+                <input type="text"
+                       name="branch"
+                       placeholder="Branch"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Semester</label>
+
+                <input type="text"
+                       name="semester"
+                       placeholder="Semester"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Subject</label>
+
+                <input type="text"
+                       name="subject"
+                       placeholder="Subject"
+                       required>
+
+            </div>
+
+
+            <button type="submit">
+                ✨ Generate Guess Paper
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Generated Questions -->
+
+    {% if questions %}
+
+    <div class="card">
+
+        <h2>📄 AI Generated Guess Paper</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Question No.</th>
+                        <th>Question</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for question in questions %}
+
+                    <tr>
+
+                        <td>{{ loop.index }}</td>
+
+                        <td>{{ question }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="page-links">
+
+            <a href="/paper_practice">
+                ▶ Start Practice Test
+            </a>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-message">
+
+        <h3>📭 No Guess Paper Generated Yet</h3>
+
+        <p>
+            Apni details select karke Guess Paper generate karein.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- Navigation -->
+
+    <div class="page-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/previous_papers">
+            📄 Previous Papers
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

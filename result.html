@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Results | Campus Cloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">
+        📊 Examination Results
+    </h1>
+
+
+    <div class="card">
+
+        <h2>Semester-wise Result</h2>
+
+        <p>
+            Your subject-wise examination result is shown below.
+        </p>
+
+    </div>
+
+
+    {% if results %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No</th>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Total Marks</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for result in results %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+                    <td>
+                        {{ result.subject }}
+                    </td>
+
+                    <td>
+                        {{ result.obtained_marks }}
+                    </td>
+
+                    <td>
+                        {{ result.total_marks }}
+                    </td>
+
+                    <td>
+                        {{ result.grade }}
+                    </td>
+
+                    <td>
+                        {{ result.status }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>🎯 Overall Percentage</h2>
+
+        <h1>
+            {{ percentage }}%
+        </h1>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-message">
+
+        <p>
+            📭 No examination results available.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="page-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

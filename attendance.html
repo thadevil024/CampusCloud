@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">📅 My Attendance</h1>
+
+
+    <div class="card">
+
+        <p>
+            Check your subject-wise attendance record.
+        </p>
+
+    </div>
+
+
+    {% if attendance_list %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No</th>
+                    <th>Subject</th>
+                    <th>Total Classes</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Medical Leave</th>
+                    <th>Attendance %</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for attendance in attendance_list %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+
+                    <td>
+                        {{ attendance.subject }}
+                    </td>
+
+
+                    <td>
+                        {{ attendance.total_classes }}
+                    </td>
+
+
+                    <td>
+                        {{ attendance.present_classes }}
+                    </td>
+
+
+                    <td>
+                        {{ attendance.total_classes
+                           - attendance.present_classes
+                           - attendance.medical_leave }}
+                    </td>
+
+
+                    <td>
+                        {{ attendance.medical_leave }}
+                    </td>
+
+
+                    <td>
+                        {{ "%.2f"|format(attendance.percentage) }}%
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- Attendance Summary -->
+
+    <div class="card">
+
+        <h3>📊 Attendance Summary</h3>
+
+        <p>
+            <strong>Total Classes:</strong>
+            {{ total_classes }}
+        </p>
+
+        <p>
+            <strong>Present:</strong>
+            {{ total_present }}
+        </p>
+
+        <p>
+            <strong>Medical Leave:</strong>
+            {{ total_medical }}
+        </p>
+
+        <h2>
+            Overall Attendance:
+            {{ overall_attendance }}%
+        </h2>
+
+    </div>
+
+
+    {% else %}
+
+    <div class="empty-message">
+
+        <h2>📭 No Attendance Record</h2>
+
+        <p>
+            Abhi tak aapki attendance ka koi record available nahi hai.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="page-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

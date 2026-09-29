@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">💳 CampusCloud Payment</h1>
+
+    <div class="card">
+
+        <h2>Make a Payment</h2>
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label for="payment_for">
+                    Payment For:
+                </label>
+
+                <select name="payment_for"
+                        id="payment_for"
+                        required>
+
+                    <option value="">
+                        -- Select Payment Purpose --
+                    </option>
+
+                    <option value="Examination Fee">
+                        Examination Fee
+                    </option>
+
+                    <option value="Admission Fee">
+                        Admission Fee
+                    </option>
+
+                    <option value="Application Fee">
+                        Application Fee
+                    </option>
+
+                    <option value="Course Fee">
+                        Course Fee
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="amount">
+                    Amount:
+                </label>
+
+                <input
+                    type="number"
+                    name="amount"
+                    id="amount"
+                    min="1"
+                    step="0.01"
+                    placeholder="Enter amount"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="payment_method">
+                    Payment Method:
+                </label>
+
+                <select
+                    name="payment_method"
+                    id="payment_method"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Payment Method --
+                    </option>
+
+                    <option value="UPI">
+                        UPI
+                    </option>
+
+                    <option value="Debit Card">
+                        Debit Card
+                    </option>
+
+                    <option value="Credit Card">
+                        Credit Card
+                    </option>
+
+                    <option value="Net Banking">
+                        Net Banking
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button type="submit">
+                💳 Proceed to Payment
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="page-links">
+
+        <a href="/payment-history">
+            📜 Payment History
+        </a>
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

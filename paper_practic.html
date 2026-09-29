@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Paper Practice - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">📝 Paper Practic</h1>
+
+    <div class="card">
+
+        <p>
+            Practice AI Generated Guess Papers and Previous Year Questions.
+        </p>
+
+    </div>
+
+
+    {% if questions %}
+
+    <form method="POST">
+
+        {% for question in questions %}
+
+        <div class="card">
+
+            <h3>
+                Q{{ loop.index }}. {{ question.question }}
+            </h3>
+
+            <textarea
+                name="answer{{ loop.index }}"
+                rows="5"
+                placeholder="Write your answer here..."></textarea>
+
+        </div>
+
+        {% endfor %}
+
+
+        <button type="submit">
+            ✅ Submit Answers
+        </button>
+
+    </form>
+
+    {% else %}
+
+    <div class="empty-message">
+
+        <h2>📭 No Practice Paper Available</h2>
+
+        <p>
+            First generate a Guess Paper, then start practicing.
+        </p>
+
+        <div class="page-links">
+
+            <a href="/guess_papers">
+                🤖 Generate Guess Paper
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- Practice Tips -->
+
+    <div class="card">
+
+        <h2>📊 Practice Tips</h2>
+
+        <ul>
+
+            <li>🕒 Set a timer before starting.</li>
+
+            <li>📚 Attempt all questions honestly.</li>
+
+            <li>✍ Write answers in your own words.</li>
+
+            <li>🔄 Practice regularly to improve.</li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- Navigation -->
+
+    <div class="page-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+        
+        <a href="/previous_papers">
+            📄 Previous Papers
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

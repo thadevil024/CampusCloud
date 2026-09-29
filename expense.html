@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense Tracker - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">💰 Expense Tracker</h1>
+
+
+    <!-- Add Expense -->
+
+    <div class="card">
+
+        <h2>Add New Expense</h2>
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>
+                    Amount
+                </label>
+
+                <input type="number"
+                       step="0.01"
+                       name="amount"
+                       placeholder="Enter amount"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <input type="text"
+                       name="description"
+                       placeholder="Enter expense description"
+                       required>
+
+            </div>
+
+
+            <button type="submit">
+                ➕ Add Expense
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Total Expense -->
+
+    <div class="card">
+
+        <h2>💰 Total Expense</h2>
+
+        <h2>₹{{ total }}</h2>
+
+    </div>
+
+
+    <!-- Expense List -->
+
+    {% if expenses %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>S.No</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for expense in expenses %}
+
+                <tr>
+
+                    <td>{{ loop.index }}</td>
+
+                    <td>₹{{ expense.amount }}</td>
+
+                    <td>{{ expense.description }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-message">
+
+        <h2>📭 No Expenses</h2>
+
+        <p>
+            Abhi tak koi expense add nahi kiya gaya hai.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- Navigation -->
+
+    <div class="page-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

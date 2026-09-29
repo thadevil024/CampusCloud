@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lost & Found - CampusCloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">🔍 Lost & Found</h1>
+
+
+    <!-- Post Lost & Found Item -->
+
+    <div class="card">
+
+        <h2>📌 Post Lost & Found Item</h2>
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>
+                    Item Title
+                </label>
+
+                <input type="text"
+                       name="title"
+                       placeholder="Enter item title"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea name="description"
+                          rows="4"
+                          placeholder="Describe the item"
+                          required></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Contact
+                </label>
+
+                <input type="text"
+                       name="contact"
+                       placeholder="Enter contact information"
+                       required>
+
+            </div>
+
+
+            <button type="submit">
+                📌 Post Item
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- My Items -->
+
+    <div class="card">
+
+        <h2>🔍 My Lost & Found Items</h2>
+
+        {% if items %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>S.No</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Contact</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for item in items %}
+
+                    <tr>
+
+                        <td>{{ loop.index }}</td>
+
+                        <td>{{ item.title }}</td>
+
+                        <td>{{ item.description }}</td>
+
+                        <td>{{ item.contact }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-message">
+
+            <h3>📭 No Items Posted</h3>
+
+            <p>
+                Abhi tak koi Lost & Found item post nahi kiya gaya hai.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Navigation -->
+
+    <div class="page-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

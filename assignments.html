@@ -4,8 +4,9 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Assignment Management</title>
+    <title>Assignments - CampusCloud</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -16,68 +17,36 @@
 
 <div class="container">
 
-    <!-- ================= ASSIGNMENT MANAGEMENT ================= -->
+    <h1 class="page-heading">📝 Assignments</h1>
 
-    <h1>📝 Assignment Management</h1>
+    <div class="card">
 
+        <h2>Available Assignments</h2>
 
-    <!-- ================= UPLOAD ASSIGNMENT ================= -->
+        <form method="GET" class="search-form">
 
-    <h2>Upload New Assignment</h2>
+            <input type="text"
+                   name="subject"
+                   placeholder="Subject">
 
-    <hr>
+            <input type="text"
+                   name="semester"
+                   placeholder="Semester">
 
-    <form method="POST"
-          enctype="multipart/form-data">
+            <input type="text"
+                   name="branch"
+                   placeholder="Branch">
 
-        <input type="text"
-               name="title"
-               placeholder="Assignment Title"
-               required>
+            <button type="submit">
+                🔍 Search Assignments
+            </button>
 
-        <input type="text"
-               name="subject"
-               placeholder="Subject"
-               required>
+        </form>
 
-        <input type="text"
-               name="semester"
-               placeholder="Semester"
-               required>
-
-        <input type="text"
-               name="branch"
-               placeholder="Branch"
-               required>
-
-        <input type="date"
-               name="due_date"
-               required>
-
-        <textarea
-            name="description"
-            placeholder="Assignment Description"
-            rows="5"
-            required></textarea>
-
-        <input type="file"
-               name="assignment_file"
-               accept=".pdf,.doc,.docx"
-               required>
-
-        <button type="submit">
-            📤 Upload Assignment
-        </button>
-
-    </form>
+    </div>
 
 
-    <hr>
-
-
-    <!-- ================= UPLOADED ASSIGNMENTS ================= -->
-
-    <h2>Uploaded Assignments</h2>
+    {% if assignments %}
 
     <div class="table-container">
 
@@ -93,8 +62,8 @@
                     <th>Semester</th>
                     <th>Branch</th>
                     <th>Due Date</th>
+                    <th>Description</th>
                     <th>Download</th>
-                    <th>Action</th>
 
                 </tr>
 
@@ -118,24 +87,16 @@
 
                     <td>{{ assignment.due_date }}</td>
 
+                    <td>{{ assignment.description }}</td>
+
                     <td>
 
                         <a href="{{ url_for('static',
                         filename='uploads/assignments/' + assignment.file_name) }}"
-                           target="_blank">
+                           target="_blank"
+                           class="btn">
 
                             📥 Download
-
-                        </a>
-
-                    </td>
-
-                    <td>
-
-                        <a href="/delete-assignment/{{ assignment.id }}"
-                           onclick="return confirm('Delete this assignment?')">
-
-                            🗑 Delete
 
                         </a>
 
@@ -151,13 +112,29 @@
 
     </div>
 
+    {% else %}
 
-    <!-- ================= NAVIGATION ================= -->
+    <div class="empty-message">
+
+        <h2>📭 No Assignments Found</h2>
+
+        <p>
+            Abhi is category ke liye koi assignment available nahi hai.
+        </p>
+
+    </div>
+
+    {% endif %}
+
 
     <div class="page-links">
 
-        <a href="/admin_dashboard">
-            🏠 Back to Dashboard
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
         </a>
 
     </div>

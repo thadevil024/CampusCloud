@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Class Timetable | Campus Cloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-heading">
+        📅 Class Timetable
+    </h1>
+
+
+    <div class="card">
+
+        <h2>Weekly Class Schedule</h2>
+
+        <p>
+            Your weekly class schedule is shown below.
+        </p>
+
+    </div>
+
+
+    {% if timetable %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Day</th>
+                    <th>09-10</th>
+                    <th>10-11</th>
+                    <th>11-12</th>
+                    <th>12-01</th>
+                    <th>02-03</th>
+                    <th>03-04</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for row in timetable %}
+
+                <tr>
+
+                    <td>
+                        {{ row.day }}
+                    </td>
+
+                    <td>
+                        {{ row.period1 }}
+                    </td>
+
+                    <td>
+                        {{ row.period2 }}
+                    </td>
+
+                    <td>
+                        {{ row.period3 }}
+                    </td>
+
+                    <td>
+                        {{ row.period4 }}
+                    </td>
+
+                    <td>
+                        {{ row.period5 }}
+                    </td>
+
+                    <td>
+                        {{ row.period6 }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-message">
+
+        <p>
+            📭 No timetable available.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="card">
+
+        <h3>📢 Important Note</h3>
+
+        <p>
+            Class timings may change according to university
+            notifications. Please check the Notice Board regularly.
+        </p>
+
+    </div>
+
+
+    <div class="page-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/notice">
+            📢 Notice Board
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
