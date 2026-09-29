@@ -5,8 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>News & Events - Campus Cloud</title>
 
@@ -17,258 +16,161 @@
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<div class="container">
 
-<header class="site-header">
+    <h1>📢 News & Events</h1>
 
-    <div class="header-left">
+    <p>
+        Welcome, {{ session['user_name'] }}!
+    </p>
 
-        <h1>🎓 Campus Cloud</h1>
+    <hr>
 
-        <p>Digital Campus & Student Community</p>
+
+    <!-- Add News / Event -->
+
+    <div class="card">
+
+        <h2>➕ Add News / Event</h2>
+
+        <form method="POST">
+
+            <label>Title</label>
+            <input type="text" name="title" required>
+
+            <label>Type</label>
+            <select name="type" required>
+
+                <option value="">
+                    -- Select Type --
+                </option>
+
+                <option value="News">
+                    News
+                </option>
+
+                <option value="Event">
+                    Event
+                </option>
+
+            </select>
+
+            <label>Description</label>
+            <textarea name="description"
+                      rows="5"
+                      required></textarea>
+
+            <label>Event Date</label>
+            <input type="date" name="event_date">
+
+            <label>Location</label>
+            <input type="text" name="location">
+
+            <button type="submit">
+                📤 Post News / Event
+            </button>
+
+        </form>
 
     </div>
 
-    <div class="header-right">
 
-        <span>University Portal</span>
+    <!-- My Posts -->
 
-        <a href="/login" class="header-login">
-            🔐 Login
-        </a>
+    <h2>📋 My News & Events</h2>
 
-    </div>
+    {% if news_events %}
 
-</header>
+        {% for item in news_events %}
 
+            <div class="card">
 
-<!-- ================= NAVBAR ================= -->
+                <h3>📌 {{ item.title }}</h3>
 
-<nav class="navbar">
+                <p>
+                    <strong>Type:</strong>
+                    {{ item.type }}
+                </p>
 
-    <a href="/">Home</a>
+                <p>
+                    <strong>Description:</strong>
+                    {{ item.description }}
+                </p>
 
-    <a href="/news-events">News & Events</a>
+                {% if item.event_date %}
 
-    <a href="/online-admission">Admission</a>
+                    <p>
+                        <strong>Event Date:</strong>
+                        {{ item.event_date }}
+                    </p>
 
-    <a href="/university-examination">Examination</a>
+                {% endif %}
 
-    <a href="/university-recruitment">Recruitment</a>
+                {% if item.location %}
 
-    <a href="/digital-e-content">E-Content</a>
+                    <p>
+                        <strong>Location:</strong>
+                        {{ item.location }}
+                    </p>
 
-    <a href="/nep-old-syllabus">Syllabus</a>
+                {% endif %}
 
-</nav>
+                {% if item.status %}
 
+                    <p>
+                        <strong>Status:</strong>
+                        {{ item.status }}
+                    </p>
 
-<!-- ================= MAIN ================= -->
+                {% endif %}
 
-<main>
+                {% if item.upload_date %}
 
-    <section class="section">
+                    <p>
+                        <strong>Posted On:</strong>
+                        {{ item.upload_date }}
+                    </p>
 
-        <div class="page-heading">
+                {% endif %}
 
-            <h2>📰 News & Events</h2>
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-message">
+
+            <h2>📭 No News or Events</h2>
 
             <p>
-                Latest university news, announcements
-                and upcoming events.
+                You have not posted any News or Events yet.
             </p>
 
         </div>
 
+    {% endif %}
 
-        <div class="news-events">
 
+    <!-- Navigation -->
 
-            <!-- ================= NEWS ================= -->
+    <div class="page-links">
 
-            <div class="news-column">
+        <a href="/teacher_dashboard">
+            🏠 Teacher Dashboard
+        </a>
 
-                <h2>📰 News</h2>
+        <a href="/profile">
+            👤 Profile
+        </a>
 
-                {% set news_found = false %}
-
-                {% for item in news_events %}
-
-                    {% if item.type == "News" %}
-
-                        {% set news_found = true %}
-
-                        <div class="news-card">
-
-                            <h3>
-                                📌 {{ item.title }}
-                            </h3>
-
-                            <p>
-                                {{ item.description }}
-                            </p>
-
-                            {% if item.upload_date %}
-
-                                <small>
-                                    📅 Posted:
-                                    {{ item.upload_date }}
-                                </small>
-
-                            {% endif %}
-
-                        </div>
-
-                    {% endif %}
-
-                {% endfor %}
-
-
-                {% if not news_found %}
-
-                    <div class="empty-card">
-
-                        <p>
-                            📭 No news available at the moment.
-                        </p>
-
-                    </div>
-
-                {% endif %}
-
-            </div>
-
-
-            <!-- ================= EVENTS ================= -->
-
-            <div class="events-column">
-
-                <h2>📅 Events</h2>
-
-                {% set events_found = false %}
-
-                {% for item in news_events %}
-
-                    {% if item.type == "Event" %}
-
-                        {% set events_found = true %}
-
-                        <div class="event-card">
-
-                            <h3>
-                                📌 {{ item.title }}
-                            </h3>
-
-                            <p>
-                                {{ item.description }}
-                            </p>
-
-
-                            {% if item.event_date %}
-
-                                <p>
-                                    <strong>
-                                        📅 Event Date:
-                                    </strong>
-
-                                    {{ item.event_date }}
-                                </p>
-
-                            {% endif %}
-
-
-                            {% if item.location %}
-
-                                <p>
-                                    <strong>
-                                        📍 Location:
-                                    </strong>
-
-                                    {{ item.location }}
-                                </p>
-
-                            {% endif %}
-
-
-                            {% if item.upload_date %}
-
-                                <small>
-                                    📅 Posted:
-                                    {{ item.upload_date }}
-                                </small>
-
-                            {% endif %}
-
-                        </div>
-
-                    {% endif %}
-
-                {% endfor %}
-
-
-                {% if not events_found %}
-
-                    <div class="empty-card">
-
-                        <p>
-                            📭 No upcoming events available.
-                        </p>
-
-                    </div>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer class="site-footer">
-
-    <div>
-
-        <h3>🎓 Campus Cloud</h3>
-
-        <p>
-            Digital Campus & Student Community
-        </p>
+        <a href="/logout">
+            🚪 Logout
+        </a>
 
     </div>
 
-
-    <div>
-
-        <h3>Quick Links</h3>
-
-        <a href="/">Home</a>
-
-        <a href="/login">Login</a>
-
-        <a href="/register">Register</a>
-
-    </div>
-
-
-    <div>
-
-        <h3>University Services</h3>
-
-        <a href="/online-admission">Admission</a>
-
-        <a href="/university-examination">Examination</a>
-
-        <a href="/digital-e-content">E-Content</a>
-
-    </div>
-
-</footer>
-
+</div>
 
 </body>
 

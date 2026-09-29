@@ -4,9 +4,10 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Assignments - CampusCloud</title>
+    <title>Assignments - Campus Cloud</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -17,28 +18,45 @@
 
 <div class="container">
 
-    <h1 class="page-heading">📝 Assignments</h1>
+    <h1>📝 Assignments</h1>
+
+    <p>
+        Welcome, {{ session['user_name'] }}!
+    </p>
+
+    <hr>
+
+    <!-- Create Assignment -->
 
     <div class="card">
 
-        <h2>Available Assignments</h2>
+        <h2>➕ Create Assignment</h2>
 
-        <form method="GET" class="search-form">
+        <form method="POST" enctype="multipart/form-data">
 
-            <input type="text"
-                   name="subject"
-                   placeholder="Subject">
+            <label>Assignment Title</label>
+            <input type="text" name="title" required>
 
-            <input type="text"
-                   name="semester"
-                   placeholder="Semester">
+            <label>Subject</label>
+            <input type="text" name="subject" required>
 
-            <input type="text"
-                   name="branch"
-                   placeholder="Branch">
+            <label>Semester</label>
+            <input type="text" name="semester" required>
+
+            <label>Branch</label>
+            <input type="text" name="branch" required>
+
+            <label>Description</label>
+            <textarea name="description" rows="5" required></textarea>
+
+            <label>Due Date</label>
+            <input type="date" name="due_date" required>
+
+            <label>Assignment File</label>
+            <input type="file" name="file">
 
             <button type="submit">
-                🔍 Search Assignments
+                📤 Create Assignment
             </button>
 
         </form>
@@ -46,91 +64,93 @@
     </div>
 
 
+    <!-- My Assignments -->
+
+    <h2>📋 My Assignments</h2>
+
     {% if assignments %}
 
-    <div class="table-container">
+        {% for assignment in assignments %}
 
-        <table>
+            <div class="card">
 
-            <thead>
+                <h3>📌 {{ assignment.title }}</h3>
 
-                <tr>
+                <p>
+                    <strong>Subject:</strong>
+                    {{ assignment.subject }}
+                </p>
 
-                    <th>S.No</th>
-                    <th>Title</th>
-                    <th>Subject</th>
-                    <th>Semester</th>
-                    <th>Branch</th>
-                    <th>Due Date</th>
-                    <th>Description</th>
-                    <th>Download</th>
+                <p>
+                    <strong>Semester:</strong>
+                    {{ assignment.semester }}
+                </p>
 
-                </tr>
+                <p>
+                    <strong>Branch:</strong>
+                    {{ assignment.branch }}
+                </p>
 
-            </thead>
+                <p>
+                    <strong>Description:</strong>
+                    {{ assignment.description }}
+                </p>
 
-            <tbody>
+                <p>
+                    <strong>Due Date:</strong>
+                    {{ assignment.due_date }}
+                </p>
 
-                {% for assignment in assignments %}
+                {% if assignment.file_name %}
 
-                <tr>
-
-                    <td>{{ loop.index }}</td>
-
-                    <td>{{ assignment.title }}</td>
-
-                    <td>{{ assignment.subject }}</td>
-
-                    <td>{{ assignment.semester }}</td>
-
-                    <td>{{ assignment.branch }}</td>
-
-                    <td>{{ assignment.due_date }}</td>
-
-                    <td>{{ assignment.description }}</td>
-
-                    <td>
-
-                        <a href="{{ url_for('static',
-                        filename='uploads/assignments/' + assignment.file_name) }}"
-                           target="_blank"
-                           class="btn">
-
-                            📥 Download
-
+                    <p>
+                        <a class="btn"
+                           href="{{ url_for('static', filename='uploads/assignments/' + assignment.file_name) }}"
+                           target="_blank">
+                            📥 View / Download Assignment
                         </a>
+                    </p>
 
-                    </td>
+                {% endif %}
 
-                </tr>
+                {% if assignment.status %}
 
-                {% endfor %}
+                    <p>
+                        <strong>Status:</strong>
+                        {{ assignment.status }}
+                    </p>
 
-            </tbody>
+                {% endif %}
 
-        </table>
+            </div>
 
-    </div>
+        {% endfor %}
 
     {% else %}
 
-    <div class="empty-message">
+        <div class="empty-message">
 
-        <h2>📭 No Assignments Found</h2>
+            <h2>📭 No Assignments</h2>
 
-        <p>
-            Abhi is category ke liye koi assignment available nahi hai.
-        </p>
+            <p>
+                You have not created any assignments yet.
+            </p>
 
-    </div>
+        </div>
 
     {% endif %}
 
 
+    <!-- Navigation -->
+
     <div class="page-links">
 
-        <a href="/dashboard">
-            🏠 Dashboard
+        <a href="/teacher_dashboard">
+            🏠 Teacher Dashboard
+        </a>
+
+        <a href="/profile">
+            👤 Profile
         </a>
 
         <a href="/logout">

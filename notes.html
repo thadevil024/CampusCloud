@@ -4,9 +4,10 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Study Notes - CampusCloud</title>
+    <title>Teacher Notes - Campus Cloud</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -17,52 +18,54 @@
 
 <div class="container">
 
-    <h1 class="page-heading">📚 Study Notes</h1>
+    <h1>📚 Teacher Notes</h1>
+
+    <p>
+        Welcome, {{ session['user_name'] }}!
+    </p>
+
+    <hr>
 
 
-    <!-- Search Notes -->
+    <!-- Upload Notes -->
 
     <div class="card">
 
-        <h2>🔍 Search Notes</h2>
+        <h2>📤 Upload Notes</h2>
 
-        <form method="GET">
+        <form method="POST" enctype="multipart/form-data">
 
-            <div class="form-group">
+            <label>Title</label>
+            <input type="text"
+                   name="title"
+                   required>
 
-                <label>Subject</label>
+            <label>Subject</label>
+            <input type="text"
+                   name="subject"
+                   required>
 
-                <input type="text"
-                       name="subject"
-                       placeholder="Subject">
+            <label>Semester</label>
+            <input type="text"
+                   name="semester"
+                   required>
 
-            </div>
+            <label>Branch</label>
+            <input type="text"
+                   name="branch"
+                   required>
 
+            <label>Description</label>
+            <textarea name="description"
+                      rows="4"></textarea>
 
-            <div class="form-group">
-
-                <label>Semester</label>
-
-                <input type="text"
-                       name="semester"
-                       placeholder="Semester">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Branch</label>
-
-                <input type="text"
-                       name="branch"
-                       placeholder="Branch">
-
-            </div>
-
+            <label>Select Notes File</label>
+            <input type="file"
+                   name="file"
+                   required>
 
             <button type="submit">
-                🔍 Search Notes
+                📤 Upload Notes
             </button>
 
         </form>
@@ -70,101 +73,66 @@
     </div>
 
 
-    <!-- Notes List -->
+    <!-- My Uploaded Notes -->
+
+    <h2>📋 My Uploaded Notes</h2>
 
     {% if notes %}
 
-    <div class="table-container">
+        {% for note in notes %}
 
-        <table>
+            <div class="card">
 
-            <thead>
+                <h3>📄 {{ note.title }}</h3>
 
-                <tr>
+                <p>
+                    <strong>Subject:</strong>
+                    {{ note.subject }}
+                </p>
 
-                    <th>S.No</th>
-                    <th>Title</th>
-                    <th>Subject</th>
-                    <th>Semester</th>
-                    <th>Branch</th>
-                    <th>Description</th>
-                    <th>Upload Date</th>
-                    <th>Preview</th>
-                    <th>Download</th>
+                <p>
+                    <strong>Semester:</strong>
+                    {{ note.semester }}
+                </p>
 
-                </tr>
+                <p>
+                    <strong>Branch:</strong>
+                    {{ note.branch }}
+                </p>
 
-            </thead>
+                <p>
+                    <strong>Description:</strong>
+                    {{ note.description }}
+                </p>
 
-            <tbody>
+                <p>
+                    <strong>Status:</strong>
+                    {{ note.status }}
+                </p>
 
-                {% for note in notes %}
+                <p>
+                    <a class="btn"
+                       href="{{ url_for('static', filename='uploads/notes/' + note.file_name) }}"
+                       target="_blank">
+                        📥 View / Download
+                    </a>
+                </p>
 
-                <tr>
+            </div>
 
-                    <td>{{ loop.index }}</td>
-
-                    <td>{{ note.title }}</td>
-
-                    <td>{{ note.subject }}</td>
-
-                    <td>{{ note.semester }}</td>
-
-                    <td>{{ note.branch }}</td>
-
-                    <td>{{ note.description }}</td>
-
-                    <td>
-                        {{ note.upload_date.strftime('%d-%m-%Y') }}
-                    </td>
-
-                    <td>
-
-                        <a href="{{ url_for('static',
-                        filename='uploads/notes/' + note.file_name) }}"
-                           target="_blank"
-                           class="btn">
-
-                            👁 Preview
-
-                        </a>
-
-                    </td>
-
-                    <td>
-
-                        <a href="{{ url_for('static',
-                        filename='uploads/notes/' + note.file_name) }}"
-                           target="_blank"
-                           class="btn">
-
-                            📥 Download
-
-                        </a>
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-    </div>
+        {% endfor %}
 
     {% else %}
 
-    <div class="empty-message">
+        <div class="empty-message">
 
-        <h2>📭 No Notes Found</h2>
+            <h2>📭 No Notes</h2>
 
-        <p>
-            Abhi is category ke liye koi study note available nahi hai.
-        </p>
+            <p>
+                No notes uploaded yet.
+            </p>
 
-    </div>
+        </div>
 
     {% endif %}
 
@@ -173,8 +141,8 @@
 
     <div class="page-links">
 
-        <a href="/dashboard">
-            🏠 Dashboard
+        <a href="/teacher_dashboard">
+            🏠 Teacher Dashboard
         </a>
 
         <a href="/profile">

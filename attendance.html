@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Attendance - CampusCloud</title>
+    <title>Mark Attendance - Campus Cloud</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -19,146 +19,334 @@
 
 <div class="container">
 
-    <h1 class="page-heading">📅 My Attendance</h1>
-
-
-    <div class="card">
-
-        <p>
-            Check your subject-wise attendance record.
-        </p>
-
-    </div>
-
-
-    {% if attendance_list %}
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>S.No</th>
-                    <th>Subject</th>
-                    <th>Total Classes</th>
-                    <th>Present</th>
-                    <th>Absent</th>
-                    <th>Medical Leave</th>
-                    <th>Attendance %</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                {% for attendance in attendance_list %}
-
-                <tr>
-
-                    <td>
-                        {{ loop.index }}
-                    </td>
-
-
-                    <td>
-                        {{ attendance.subject }}
-                    </td>
-
-
-                    <td>
-                        {{ attendance.total_classes }}
-                    </td>
-
-
-                    <td>
-                        {{ attendance.present_classes }}
-                    </td>
-
-
-                    <td>
-                        {{ attendance.total_classes
-                           - attendance.present_classes
-                           - attendance.medical_leave }}
-                    </td>
-
-
-                    <td>
-                        {{ attendance.medical_leave }}
-                    </td>
-
-
-                    <td>
-                        {{ "%.2f"|format(attendance.percentage) }}%
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-
-    <!-- Attendance Summary -->
+    <h1 class="page-heading">
+        📊 Mark Attendance
+    </h1>
 
     <div class="card">
 
-        <h3>📊 Attendance Summary</h3>
+        <form method="POST"
+              id="attendanceForm">
 
-        <p>
-            <strong>Total Classes:</strong>
-            {{ total_classes }}
-        </p>
+            <!-- Attendance Details -->
 
-        <p>
-            <strong>Present:</strong>
-            {{ total_present }}
-        </p>
+            <div class="attendance-details">
 
-        <p>
-            <strong>Medical Leave:</strong>
-            {{ total_medical }}
-        </p>
+                <div>
+                    <label>Subject</label>
 
-        <h2>
-            Overall Attendance:
-            {{ overall_attendance }}%
-        </h2>
+                    <select name="subject" required>
+
+                        <option value="">
+                            Select Subject
+                        </option>
+
+                        <option value="DBMS">
+                            DBMS
+                        </option>
+
+                        <option value="Operating System">
+                            Operating System
+                        </option>
+
+                        <option value="Computer Networks">
+                            Computer Networks
+                        </option>
+
+                        <option value="Software Engineering">
+                            Software Engineering
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Date</label>
+
+                    <input
+                        type="date"
+                        name="date"
+                        value="{{ today }}"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label>Semester</label>
+
+                    <select name="semester" required>
+
+                        <option value="">
+                            Select Semester
+                        </option>
+
+                        <option value="1st">
+                            1st
+                        </option>
+
+                        <option value="2nd">
+                            2nd
+                        </option>
+
+                        <option value="3rd">
+                            3rd
+                        </option>
+
+                        <option value="4th">
+                            4th
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Branch</label>
+
+                    <select name="branch" required>
+
+                        <option value="">
+                            Select Branch
+                        </option>
+
+                        <option value="M.Sc IT">
+                            M.Sc IT
+                        </option>
+
+                        <option value="MCA">
+                            MCA
+                        </option>
+
+                        <option value="BCA">
+                            BCA
+                        </option>
+
+                        <option value="B.Sc IT">
+                            B.Sc IT
+                        </option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- Student Attendance -->
+
+            <h2>
+                Student Attendance
+            </h2>
+
+
+            {% if students %}
+
+            <div class="attendance-table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                            <th>
+                                Enrollment No.
+                            </th>
+
+                            <th>
+                                Attendance
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for student in students %}
+
+                        <tr>
+
+                            <td>
+                                {{ loop.index }}
+                            </td>
+
+
+                            <td>
+                                {{ student.name }}
+                            </td>
+
+
+                            <td>
+
+                                {% if student.enrollment_no %}
+
+                                    {{ student.enrollment_no }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                <div class="attendance-buttons">
+
+                                    <button
+                                        type="button"
+                                        class="attendance-btn present active"
+                                        data-student="{{ student.id }}"
+                                        data-status="Present"
+                                        onclick="setAttendance(this)"
+                                    >
+                                        🟢 Present
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="attendance-btn absent"
+                                        data-student="{{ student.id }}"
+                                        data-status="Absent"
+                                        onclick="setAttendance(this)"
+                                    >
+                                        🔴 Absent
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="attendance-btn medical"
+                                        data-student="{{ student.id }}"
+                                        data-status="Medical Leave"
+                                        onclick="setAttendance(this)"
+                                    >
+                                        🟡 Medical Leave
+                                    </button>
+
+
+                                    <input
+                                        type="hidden"
+                                        name="status_{{ student.id }}"
+                                        value="Present"
+                                        id="status_{{ student.id }}"
+                                    >
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- Mark All Present -->
+
+            <button
+                type="button"
+                class="btn"
+                onclick="markAllPresent()"
+            >
+                ✓ Mark All Present
+            </button>
+
+
+            <br><br>
+
+
+            <!-- Counters -->
+
+            <div class="attendance-summary">
+
+                <strong>
+                    Present:
+                    <span id="presentCount">
+                        {{ students|length }}
+                    </span>
+                </strong>
+
+
+                <strong>
+                    Absent:
+                    <span id="absentCount">
+                        0
+                    </span>
+                </strong>
+
+
+                <strong>
+                    Medical Leave:
+                    <span id="medicalCount">
+                        0
+                    </span>
+                </strong>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- Save -->
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                💾 Save Attendance
+            </button>
+
+
+            {% else %}
+
+            <div class="empty-message">
+
+                <h2>
+                    📭 No Students Found
+                </h2>
+
+                <p>
+                    No student records are available.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </form>
 
     </div>
-
-
-    {% else %}
-
-    <div class="empty-message">
-
-        <h2>📭 No Attendance Record</h2>
-
-        <p>
-            Abhi tak aapki attendance ka koi record available nahi hai.
-        </p>
-
-    </div>
-
-    {% endif %}
 
 
     <div class="page-links">
 
-        <a href="/dashboard">
-            🏠 Dashboard
-        </a>
-
-        <a href="/profile">
-            👤 Profile
+        <a href="{{ url_for('teacher_dashboard') }}">
+            ← Teacher Dashboard
         </a>
 
         <a href="/logout">
@@ -169,6 +357,147 @@
 
 </div>
 
-</body>
 
+<script>
+
+function setAttendance(button) {
+
+    const studentId = button.dataset.student;
+    const status = button.dataset.status;
+
+    // Hidden input update
+
+    document.getElementById(
+        "status_" + studentId
+    ).value = status;
+
+
+    // Remove active from all buttons of this student
+
+    const buttons = document.querySelectorAll(
+        '[data-student="' + studentId + '"]'
+    );
+
+    buttons.forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+    });
+
+
+    // Activate selected button
+
+    button.classList.add("active");
+
+
+    // Update counters
+
+    updateCounters();
+
+}
+
+
+function markAllPresent() {
+
+    const buttons = document.querySelectorAll(
+        '.attendance-btn.present'
+    );
+
+    buttons.forEach(function(button) {
+
+        const studentId =
+            button.dataset.student;
+
+        document.getElementById(
+            "status_" + studentId
+        ).value = "Present";
+
+
+        const studentButtons =
+            document.querySelectorAll(
+                '[data-student="' +
+                studentId +
+                '"]'
+            );
+
+
+        studentButtons.forEach(
+            function(btn) {
+
+                btn.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        button.classList.add("active");
+
+    });
+
+
+    updateCounters();
+
+}
+
+
+function updateCounters() {
+
+    let present = 0;
+    let absent = 0;
+    let medical = 0;
+
+
+    const statusInputs =
+        document.querySelectorAll(
+            'input[id^="status_"]'
+        );
+
+
+    statusInputs.forEach(function(input) {
+
+        if (input.value === "Present") {
+
+            present++;
+
+        }
+
+        else if (input.value === "Absent") {
+
+            absent++;
+
+        }
+
+        else if (
+            input.value === "Medical Leave"
+        ) {
+
+            medical++;
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "presentCount"
+    ).textContent = present;
+
+
+    document.getElementById(
+        "absentCount"
+    ).textContent = absent;
+
+
+    document.getElementById(
+        "medicalCount"
+    ).textContent = medical;
+
+}
+
+</script>
+
+
+</body>
 </html>

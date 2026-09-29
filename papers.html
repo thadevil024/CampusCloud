@@ -5,7 +5,9 @@
 
     <meta charset="UTF-8">
 
-    <title>Previous Year Papers Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Previous Year Papers</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -16,253 +18,103 @@
 
 <div class="container">
 
-    <!-- ================= PAPERS MANAGEMENT ================= -->
+    <h1>📄 Previous Year Papers</h1>
 
-    <h1>📄 Previous Year Papers Management</h1>
-
-    <hr>
-
-
-    <!-- ================= UPLOAD NEW PAPER ================= -->
-
-    <h2>Upload New Paper</h2>
-
-    <form method="POST"
-          enctype="multipart/form-data">
-
-        <input type="text"
-               name="title"
-               placeholder="Paper Title"
-               required>
-
-        <input type="text"
-               name="university"
-               placeholder="University"
-               required>
-
-        <input type="text"
-               name="course"
-               placeholder="Course"
-               required>
-
-        <input type="text"
-               name="branch"
-               placeholder="Branch"
-               required>
-
-        <input type="text"
-               name="semester"
-               placeholder="Semester"
-               required>
-
-        <input type="text"
-               name="subject"
-               placeholder="Subject"
-               required>
-
-        <input type="text"
-               name="exam_year"
-               placeholder="Exam Year (e.g. 2023-24)"
-               pattern="[0-9]{4}-[0-9]{2}"
-               title="Enter year in format 2023-24"
-               required>
-
-        <select name="exam_type"
-                required>
-
-            <option value="">
-                Select Exam Type
-            </option>
-
-            <option value="Mid Semester">
-                Mid Semester
-            </option>
-
-            <option value="End Semester">
-                End Semester
-            </option>
-
-            <option value="Practical">
-                Practical
-            </option>
-
-            <option value="Other">
-                Other
-            </option>
-
-        </select>
-
-        <textarea
-            name="description"
-            placeholder="Description"
-            rows="4"></textarea>
-
-        <input type="file"
-               name="paper_file"
-               accept=".pdf"
-               required>
-
-        <button type="submit">
-            📤 Upload Paper
-        </button>
-
-    </form>
-
+    <p>Upload previous year examination papers for students.</p>
 
     <hr>
 
+    <div class="card">
 
-    <!-- ================= UPLOADED PAPERS ================= -->
+        <h2>📤 Upload Paper</h2>
 
-    <h2>Uploaded Papers</h2>
+        <form method="POST" enctype="multipart/form-data">
 
-    <div class="table-container">
+            <label>Paper Title</label>
+            <input type="text"
+                   name="title"
+                   placeholder="Paper Title"
+                   required>
 
-        <table>
+            <label>University</label>
+            <input type="text"
+                   name="university"
+                   placeholder="University"
+                   required>
 
-            <thead>
+            <label>Course</label>
+            <input type="text"
+                   name="course"
+                   placeholder="Course"
+                   required>
 
-                <tr>
+            <label>Branch</label>
+            <input type="text"
+                   name="branch"
+                   placeholder="Branch"
+                   required>
 
-                    <th>S.No</th>
-                    <th>Title</th>
-                    <th>University</th>
-                    <th>Subject</th>
-                    <th>Semester</th>
-                    <th>Year</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                    <th>View</th>
-                    <th>Delete</th>
+            <label>Semester</label>
+            <input type="text"
+                   name="semester"
+                   placeholder="Semester"
+                   required>
 
-                </tr>
+            <label>Subject</label>
+            <input type="text"
+                   name="subject"
+                   placeholder="Subject"
+                   required>
 
-            </thead>
+            <label>Exam Year</label>
+            <input type="text"
+                   name="exam_year"
+                   placeholder="2023-24"
+                   pattern="[0-9]{4}-[0-9]{2}"
+                   title="Enter exam year in format 2023-24"
+                   required>
 
-            <tbody>
+            <label>Exam Type</label>
+            <select name="exam_type">
 
-                {% for paper in papers %}
+                <option>Mid Semester</option>
+                <option>End Semester</option>
+                <option>Practical</option>
+                <option>Other</option>
 
-                <tr>
+            </select>
 
-                    <td>
-                        {{ loop.index }}
-                    </td>
+            <label>Description</label>
+            <textarea name="description"
+                      placeholder="Description"
+                      rows="4"></textarea>
 
-                    <td>
-                        {{ paper.title }}
-                    </td>
+            <label>Paper File (PDF)</label>
+            <input type="file"
+                   name="paper_file"
+                   accept=".pdf"
+                   required>
 
-                    <td>
-                        {{ paper.university }}
-                    </td>
+            <button type="submit">
+                📤 Upload Paper
+            </button>
 
-                    <td>
-                        {{ paper.subject }}
-                    </td>
-
-                    <td>
-                        {{ paper.semester }}
-                    </td>
-
-                    <td>
-                        {{ paper.exam_year }}
-                    </td>
-
-                    <td>
-
-                        {% if paper.status == "Approved" %}
-
-                            <span class="status-label status-approved">
-                                ✅ Approved
-                            </span>
-
-                        {% elif paper.status == "Rejected" %}
-
-                            <span class="status-label status-rejected">
-                                ❌ Rejected
-                            </span>
-
-                        {% else %}
-
-                            <span class="status-label status-pending">
-                                ⏳ Pending
-                            </span>
-
-                        {% endif %}
-
-                    </td>
-
-                    <td>
-
-                        <div class="table-actions">
-
-                            {% if paper.status != "Approved" %}
-
-                                <a href="/approve-paper/{{ paper.id }}"
-                                   onclick="return confirm('Approve this paper?')">
-
-                                    ✅ Approve
-
-                                </a>
-
-                            {% endif %}
-
-                            {% if paper.status != "Rejected" %}
-
-                                <a href="/reject-paper/{{ paper.id }}"
-                                   onclick="return confirm('Reject this paper?')">
-
-                                    ❌ Reject
-
-                                </a>
-
-                            {% endif %}
-
-                        </div>
-
-                    </td>
-
-                    <td>
-
-                        <a href="{{ url_for('static',
-                        filename='uploads/papers/' + paper.file_name) }}"
-                        target="_blank">
-
-                            👁 View
-
-                        </a>
-
-                    </td>
-
-                    <td>
-
-                        <a href="/delete-paper/{{ paper.id }}"
-                           onclick="return confirm('Delete this paper?')">
-
-                            🗑 Delete
-
-                        </a>
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
+        </form>
 
     </div>
 
-
-    <!-- ================= NAVIGATION ================= -->
-
     <div class="page-links">
 
-        <a href="/admin_dashboard">
-            🏠 Back to Dashboard
+        <a href="/teacher_dashboard">
+            🏠 Teacher Dashboard
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
         </a>
 
     </div>

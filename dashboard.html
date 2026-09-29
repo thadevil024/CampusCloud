@@ -2,180 +2,101 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Dashboard - CampusCloud</title>
+    <title>Teacher Dashboard - CampusCloud</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 
 <body>
 
-<div class="dashboard-container student-dashboard">
+<div class="dashboard-container teacher-dashboard">
 
     <div class="dashboard-header">
-
-        <h1>🎓 CampusCloud</h1>
+        <h1>👨‍🏫 Teacher Dashboard</h1>
 
         <p class="welcome-text">
             Welcome, {{ username }}!
         </p>
-
     </div>
 
-
-    <!-- Student Statistics -->
 
     <div class="dashboard-grid">
 
         <div class="dashboard-card">
+            <h2>📚 Manage Notes</h2>
+            <p>Upload and manage study notes.</p>
 
-            <h2>💰</h2>
-
-            <h3>{{ total_expenses }}</h3>
-
-            <p>Expenses</p>
-
-            <a href="/expense" class="btn">
-                View Expenses
+            <a href="/teacher/notes" class="btn">
+                Manage Notes
             </a>
-
         </div>
 
 
         <div class="dashboard-card">
+            <h2>📄 Old Papers</h2>
+            <p>Upload previous year examination papers.</p>
 
-            <h2>📢</h2>
-
-            <h3>{{ total_notices }}</h3>
-
-            <p>Notices</p>
-
-            <a href="/notice" class="btn">
-                View Notices
+            <a href="/teacher/papers" class="btn">
+                Upload Old Papers
             </a>
-
         </div>
 
 
         <div class="dashboard-card">
+            <h2>📝 Assignments</h2>
+            <p>Create and manage student assignments.</p>
 
-            <h2>🔍</h2>
-
-            <h3>{{ total_lost_items }}</h3>
-
-            <p>Lost & Found</p>
-
-            <a href="/lost-found" class="btn">
-                View Lost & Found
+            <a href="/teacher/assignments" class="btn">
+                Manage Assignments
             </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- Student Features -->
-
-    <div class="dashboard-grid">
-
-        <div class="dashboard-card">
-
-            <h2>👤</h2>
-
-            <p>View and manage your profile.</p>
-
-            <a href="/profile" class="btn">
-                My Profile
-            </a>
-
-        </div>
-
-
-        <div class="dashboard-card">
-
-            <h2>📚</h2>
-
-            <p>Access your study notes.</p>
-
-            <a href="/notes" class="btn">
-                Study Notes
-            </a>
-
-        </div>
-
-
-        <div class="dashboard-card">
-
-            <h2>📄</h2>
-
-            <p>View previous year question papers.</p>
-
-            <a href="/papers" class="btn">
-                Old Papers
-            </a>
-
-        </div>
-
-
-        <div class="dashboard-card">
-
-            <h2>📝</h2>
-
-            <p>Check your available assignments.</p>
-
-            <a href="/assignments" class="btn">
-                Assignments
-            </a>
-
-        </div>
-
-
-        <div class="dashboard-card">
-
-            <h2>📅</h2>
-
-            <p>Check your subject-wise attendance.</p>
-
-            <a href="/attendance" class="btn">
-                Attendance
-            </a>
-
         </div>
 
         <div class="dashboard-card">
 
-            <h2>📝</h2>
+            <h2>📊 Attendance</h2>
 
             <p>
-                Practice AI-generated guess papers and
-                previous-year questions.
+                Mark and manage student attendance.
             </p>
 
-            <a href="/paper_practic" class="btn">
-                Paper Practice
+            <a href="{{ url_for('teacher_attendance') }}"
+                class="btn">
+                Manage Attendance
             </a>
 
         </div>
 
+        <div class="dashboard-card">
+            <h2>📢 News & Events</h2>
+            <p>Manage university news and upcoming events.</p>
+
+            <a href="/teacher/news-events" class="btn">
+                News & Events
+            </a>
+        </div>
+
+
+        <div class="dashboard-card">
+            <h2>👤 Profile</h2>
+            <p>View and manage your teacher profile.</p>
+
+            <a href="/profile" class="btn">
+                View Profile
+            </a>
+        </div>
+
     </div>
 
-
-    <!-- Dashboard Links -->
 
     <div class="page-links">
 
-        <a href="/profile">
-            👤 Profile
-        </a>
-
-        <a href="/logout">
-            🚪 Logout
-        </a>
+            <a href="/logout">
+                 🚪 Logout
+            </a>
 
     </div>
 
