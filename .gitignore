@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Flask
+instance/
+
+# Database
+*.db
+
+# Uploaded files
+static/uploads/
+
+# Environment variables
+.env
+
+# IDE
+.idea/
+.vscode/
