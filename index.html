@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Campus Cloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="site-header">
+
+    <div class="header-left">
+        <h1>🎓 Campus Cloud</h1>
+        <p>Digital Campus & Student Community</p>
+    </div>
+
+    <div class="header-right">
+        <span>University Portal</span>
+
+        <a href="/login" class="header-login">
+            🔐 Login
+        </a>
+    </div>
+
+</header>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a href="/">Home</a>
+
+    <a href="#">About</a>
+
+    <a href="#">Academics</a>
+
+    <a href="#">Services</a>
+
+    <a href="/news-events">News & Events</a>
+
+    <a href="#">Gallery</a>
+
+    <a href="#">Useful Links</a>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h2>WELCOME TO CAMPUS CLOUD</h2>
+
+        <p>
+            Digital Campus & Student Community
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/login" class="hero-btn">
+                🔐 Login
+            </a>
+
+            <a href="/register" class="hero-btn register-btn">
+                📝 Register
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUICK ACCESS ================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        QUICK ACCESS
+    </h2>
+
+    <div class="quick-access">
+
+        <a href="/online-admission" class="quick-card">
+            <span>🎓</span>
+            <strong>Admission</strong>
+            <small>Online Admission</small>
+        </a>
+
+        <a href="/university-examination" class="quick-card">
+            <span>📝</span>
+            <strong>Examination</strong>
+            <small>University Examination</small>
+        </a>
+
+        <a href="/university-recruitment" class="quick-card">
+            <span>💼</span>
+            <strong>Recruitment</strong>
+            <small>University Recruitment</small>
+        </a>
+
+        <a href="/digital-e-content" class="quick-card">
+            <span>📚</span>
+            <strong>E-Content</strong>
+            <small>Digital E-Content</small>
+        </a>
+
+        <a href="/nep-old-syllabus" class="quick-card">
+            <span>📖</span>
+            <strong>Syllabus</strong>
+            <small>NEP & Old Syllabus</small>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= NOTICES ================= -->
+
+<section class="section notices-section">
+
+    <h2 class="section-title">
+        📢 NOTICES
+    </h2>
+
+    <div class="notices-box">
+
+        <div class="notice-item">
+
+            <span>
+                Latest University Notice
+            </span>
+
+            <span class="notice-date">
+                04 Sep 2026
+            </span>
+
+        </div>
+
+        <div class="notice-item">
+
+            <span>
+                Important Student Notice
+            </span>
+
+            <span class="notice-date">
+                03 Sep 2026
+            </span>
+
+        </div>
+
+        <div class="notice-item">
+
+            <span>
+                Examination Related Notice
+            </span>
+
+            <span class="notice-date">
+                02 Sep 2026
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= NEWS & EVENTS ================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        📰 NEWS & EVENTS
+    </h2>
+
+    <div class="news-events">
+
+        <!-- NEWS -->
+
+        <div class="news-column">
+
+            <h3>📰 NEWS</h3>
+
+            <div class="news-card">
+
+                <h4>Campus News</h4>
+
+                <p>
+                    Latest university and campus updates
+                    will appear here.
+                </p>
+
+                <span>
+                    Read More →
+                </span>
+
+            </div>
+
+
+            <div class="news-card">
+
+                <h4>University Update</h4>
+
+                <p>
+                    Important news and announcements
+                    for students.
+                </p>
+
+                <span>
+                    Read More →
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- EVENTS -->
+
+        <div class="events-column">
+
+            <h3>📅 EVENTS</h3>
+
+            <div class="event-card">
+
+                <h4>Upcoming Campus Event</h4>
+
+                <p>
+                    Event details, date and venue
+                    will appear here.
+                </p>
+
+                <span>
+                    View Details →
+                </span>
+
+            </div>
+
+
+            <div class="event-card">
+
+                <h4>University Programme</h4>
+
+                <p>
+                    Information about upcoming
+                    university programmes.
+                </p>
+
+                <span>
+                    View Details →
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= STUDENT REQUEST BOX ================= -->
+
+<section class="section request-section">
+
+    <h2 class="section-title">
+        📩 NEED NOTES OR QUESTION PAPER?
+    </h2>
+
+    <p class="request-intro">
+        Agar aapko koi Notes, Question Paper, Assignment
+        ya Study Material chahiye aur website par nahi mil raha,
+        to hame request bhejiye.
+    </p>
+
+    <div class="request-box">
+
+        <form action="/student-request" method="POST">
+
+            <div class="form-group">
+
+                <label for="name">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="institution">
+                    College / University
+                </label>
+
+                <input
+                    type="text"
+                    id="institution"
+                    name="institution"
+                    placeholder="Enter institution name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="course">
+                    Course / Class
+                </label>
+
+                <input
+                    type="text"
+                    id="course"
+                    name="course"
+                    placeholder="Example: BCA"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="semester">
+                    Semester
+                </label>
+
+                <input
+                    type="text"
+                    id="semester"
+                    name="semester"
+                    placeholder="Example: Semester 3"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="subject">
+                    Subject
+                </label>
+
+                <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    placeholder="Enter subject name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="request_type">
+                    What do you need?
+                </label>
+
+                <select
+                    id="request_type"
+                    name="request_type"
+                    required
+                >
+
+                    <option value="">
+                        Select Requirement
+                    </option>
+
+                    <option value="Notes">
+                        📚 Notes
+                    </option>
+
+                    <option value="Question Paper">
+                        📄 Question Paper
+                    </option>
+
+                    <option value="Assignment">
+                        📝 Assignment
+                    </option>
+
+                    <option value="Other">
+                        📌 Other Study Material
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="requirement">
+                    Describe Your Requirement
+                </label>
+
+                <textarea
+                    id="requirement"
+                    name="requirement"
+                    rows="5"
+                    placeholder="Example: BCA Semester 3 DBMS ke 2024 ke question paper ki zarurat hai."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="request-btn"
+            >
+                📩 Submit Request
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- ================= STUDENT REQUEST LIST ================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        📢 STUDENT REQUEST LIST
+    </h2>
+
+    {% if requests %}
+
+        <div class="table-container student-request-table">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Request Type</th>
+                        <th>Student</th>
+                        <th>Institution</th>
+                        <th>Course</th>
+                        <th>Semester</th>
+                        <th>Subject</th>
+                        <th>Requirement</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for req in requests %}
+
+                    <tr>
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+                        <td>
+                            📚 {{ req.request_type }}
+                        </td>
+
+                        <td>
+                            👤 {{ req.name }}
+                        </td>
+
+                        <td>
+                            🏫 {{ req.institution }}
+                        </td>
+
+                        <td>
+                            🎓 {{ req.course }}
+                        </td>
+
+                        <td>
+                            📖 {{ req.semester }}
+                        </td>
+
+                        <td>
+                            📘 {{ req.subject }}
+                        </td>
+
+                        <td>
+                            📝 {{ req.requirement }}
+                        </td>
+
+                        <td>
+                            📅 {{ req.request_date.strftime('%d-%m-%Y %H:%M') }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-message">
+
+            <h3>📭 No Student Requests</h3>
+
+            <p>
+                Abhi koi student request available nahi hai.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+<!-- ================= GALLERY ================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        🖼️ GALLERY
+    </h2>
+
+    <div class="gallery">
+
+        {% if gallery_images %}
+
+            {% for image in gallery_images %}
+
+                <div class="gallery-item">
+
+                    <img
+                        src="{{ url_for('static', filename='uploads/gallery/' + image.image_name) }}"
+                        alt="{{ image.title or 'Campus Gallery Image' }}"
+                    >
+
+                    {% if image.title %}
+                        <h3>{{ image.title }}</h3>
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="gallery-item">
+                🖼️
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+<!-- ================= USEFUL LINKS ================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        🔗 USEFUL LINKS
+    </h2>
+
+    <div class="useful-links">
+
+        <a href="#">
+            💼 Jobs & Career
+        </a>
+
+        <a href="#">
+            🎓 Scholarship
+        </a>
+
+        <a href="#">
+            ☎️ Help Line
+        </a>
+
+        <a href="#">
+            📢 Complaint / Grievance
+        </a>
+
+        <a href="#">
+            🏛️ University Official Website
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="site-footer">
+
+    <div>
+
+        <h3>🎓 Campus Cloud</h3>
+
+        <p>
+            Digital Campus & Student Community Platform
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Contact</h3>
+
+        <p>
+            Email: campuscloud@example.com
+        </p>
+
+        <p>
+            University Portal
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Quick Links</h3>
+
+        <p>
+            Login | Register
+        </p>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+
+        © 2026 Campus Cloud |
+        Developed by Dushyant
+
+    </p>
+
+</footer>
+
+</body>
+
+</html>

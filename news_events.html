@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>News & Events - Campus Cloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="site-header">
+
+    <div class="header-left">
+
+        <h1>🎓 Campus Cloud</h1>
+
+        <p>Digital Campus & Student Community</p>
+
+    </div>
+
+    <div class="header-right">
+
+        <span>University Portal</span>
+
+        <a href="/login" class="header-login">
+            🔐 Login
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a href="/">Home</a>
+
+    <a href="/news-events">News & Events</a>
+
+    <a href="/online-admission">Admission</a>
+
+    <a href="/university-examination">Examination</a>
+
+    <a href="/university-recruitment">Recruitment</a>
+
+    <a href="/digital-e-content">E-Content</a>
+
+    <a href="/nep-old-syllabus">Syllabus</a>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <section class="section">
+
+        <div class="page-heading">
+
+            <h2>📰 News & Events</h2>
+
+            <p>
+                Latest university news, announcements
+                and upcoming events.
+            </p>
+
+        </div>
+
+
+        <div class="news-events">
+
+
+            <!-- ================= NEWS ================= -->
+
+            <div class="news-column">
+
+                <h2>📰 News</h2>
+
+                {% set news_found = false %}
+
+                {% for item in news_events %}
+
+                    {% if item.type == "News" %}
+
+                        {% set news_found = true %}
+
+                        <div class="news-card">
+
+                            <h3>
+                                📌 {{ item.title }}
+                            </h3>
+
+                            <p>
+                                {{ item.description }}
+                            </p>
+
+                            {% if item.upload_date %}
+
+                                <small>
+                                    📅 Posted:
+                                    {{ item.upload_date }}
+                                </small>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+                {% if not news_found %}
+
+                    <div class="empty-card">
+
+                        <p>
+                            📭 No news available at the moment.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- ================= EVENTS ================= -->
+
+            <div class="events-column">
+
+                <h2>📅 Events</h2>
+
+                {% set events_found = false %}
+
+                {% for item in news_events %}
+
+                    {% if item.type == "Event" %}
+
+                        {% set events_found = true %}
+
+                        <div class="event-card">
+
+                            <h3>
+                                📌 {{ item.title }}
+                            </h3>
+
+                            <p>
+                                {{ item.description }}
+                            </p>
+
+
+                            {% if item.event_date %}
+
+                                <p>
+                                    <strong>
+                                        📅 Event Date:
+                                    </strong>
+
+                                    {{ item.event_date }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if item.location %}
+
+                                <p>
+                                    <strong>
+                                        📍 Location:
+                                    </strong>
+
+                                    {{ item.location }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if item.upload_date %}
+
+                                <small>
+                                    📅 Posted:
+                                    {{ item.upload_date }}
+                                </small>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+                {% if not events_found %}
+
+                    <div class="empty-card">
+
+                        <p>
+                            📭 No upcoming events available.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="site-footer">
+
+    <div>
+
+        <h3>🎓 Campus Cloud</h3>
+
+        <p>
+            Digital Campus & Student Community
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Quick Links</h3>
+
+        <a href="/">Home</a>
+
+        <a href="/login">Login</a>
+
+        <a href="/register">Register</a>
+
+    </div>
+
+
+    <div>
+
+        <h3>University Services</h3>
+
+        <a href="/online-admission">Admission</a>
+
+        <a href="/university-examination">Examination</a>
+
+        <a href="/digital-e-content">E-Content</a>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

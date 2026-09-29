@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Online Admission | Campus Cloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎓 Online Admission</h1>
+
+    <h2>Student Admission Form</h2>
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="admission-from">
+
+        <label>Full Name</label>
+        <input type="text"
+               name="full_name"
+               placeholder="Enter Full Name"
+               required>
+
+        <br><br>
+
+        <label>Father's Name</label>
+        <input type="text"
+               name="father_name"
+               placeholder="Enter Father's Name"
+               required>
+
+        <br><br>
+
+        <label>Mother's Name</label>
+        <input type="text"
+               name="mother_name"
+               placeholder="Enter Mother's Name"
+               required>
+
+        <br><br>
+
+        <label>Date of Birth</label>
+        <input type="date"
+               name="dob"
+               required>
+
+        <br><br>
+
+        <label>Mobile Number</label>
+        <input type="tel"
+               name="mobile"
+               placeholder="Enter Mobile Number"
+               required>
+
+        <br><br>
+
+        <label>Email</label>
+        <input type="email"
+               name="email"
+               placeholder="Enter Email Address"
+               required>
+
+        <br><br>
+
+        <label>Address</label>
+        <textarea name="address"
+                  placeholder="Enter Complete Address"
+                  rows="4"
+                  required></textarea>
+
+        <br><br>
+
+        <label>College</label>
+        <input type="text"
+               name="college"
+               placeholder="Enter College Name"
+               required>
+
+        <br><br>
+
+        <label>Course</label>
+        <input type="text"
+               name="course"
+               placeholder="Enter Course"
+               required>
+
+        <br><br>
+
+        <label>Branch</label>
+        <input type="text"
+               name="branch"
+               placeholder="Enter Branch">
+
+        <br><br>
+
+        <label>Semester</label>
+        <select name="semester" required>
+
+            <option value="">Select Semester</option>
+
+            <option value="1">1st Semester</option>
+            <option value="2">2nd Semester</option>
+            <option value="3">3rd Semester</option>
+            <option value="4">4th Semester</option>
+            <option value="5">5th Semester</option>
+            <option value="6">6th Semester</option>
+            <option value="7">7th Semester</option>
+            <option value="8">8th Semester</option>
+
+        </select>
+
+        <br><br>
+
+        <label>Category</label>
+        <select name="category" required>
+
+            <option value="">Select Category</option>
+
+            <option value="General">General</option>
+            <option value="OBC">OBC</option>
+            <option value="SC">SC</option>
+            <option value="ST">ST</option>
+            <option value="EWS">EWS</option>
+
+        </select>
+
+        <br><br>
+
+        <label>Previous Qualification</label>
+        <input type="text"
+               name="qualification"
+               placeholder="e.g. 12th / Diploma"
+               required>
+
+        <br><br>
+
+        <label>Percentage / Marks</label>
+        <input type="text"
+               name="marks"
+               placeholder="Enter Percentage or Marks"
+               required>
+
+        <br><br>
+
+        <label>Student Photo</label>
+        <input type="file"
+               name="photo"
+               accept="image/*">
+
+        <br><br>
+
+        <label>Documents</label>
+        <input type="file"
+               name="documents"
+               accept=".pdf,.jpg,.jpeg,.png">
+
+        <br><br>
+
+        <label>Signature</label>
+        <input type="file"
+               name="signature"
+               accept="image/*">
+
+        <br><br>
+
+        <button type="submit">
+            Submit Admission Form
+        </button>
+
+    </form>
+
+    <br>
+
+    <p style="text-align:center;">
+
+        <a href="/">
+            ← Back to Home
+        </a>
+
+    </p>
+
+</div>
+
+</body>
+
+</html>
+

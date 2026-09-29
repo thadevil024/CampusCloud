@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>University Examination | Campus Cloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📝 University Examination</h1>
+
+    <h2>Examination Form</h2>
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="examination-form">
+
+        <label>Student Name</label>
+        <input type="text"
+               name="student_name"
+               placeholder="Enter Student Name"
+               required>
+
+        <br><br>
+
+        <label>Enrollment Number</label>
+        <input type="text"
+               name="enrollment_no"
+               placeholder="Enter Enrollment Number"
+               required>
+
+        <br><br>
+
+        <label>College</label>
+        <input type="text"
+               name="college"
+               placeholder="Enter College Name"
+               required>
+
+        <br><br>
+
+        <label>Course</label>
+        <input type="text"
+               name="course"
+               placeholder="Enter Course"
+               required>
+
+        <br><br>
+
+        <label>Branch</label>
+        <input type="text"
+               name="branch"
+               placeholder="Enter Branch">
+
+        <br><br>
+
+        <label>Semester</label>
+        <select name="semester" required>
+
+            <option value="">Select Semester</option>
+
+            <option value="1">1st Semester</option>
+            <option value="2">2nd Semester</option>
+            <option value="3">3rd Semester</option>
+            <option value="4">4th Semester</option>
+            <option value="5">5th Semester</option>
+            <option value="6">6th Semester</option>
+            <option value="7">7th Semester</option>
+            <option value="8">8th Semester</option>
+
+        </select>
+
+        <br><br>
+
+        <label>Examination Type</label>
+        <select name="exam_type" required>
+
+            <option value="">Select Examination Type</option>
+
+            <option value="Regular">Regular</option>
+            <option value="Back">Back</option>
+            <option value="Supplementary">Supplementary</option>
+
+        </select>
+
+        <br><br>
+
+        <label>Session</label>
+        <input type="text"
+               name="session"
+               placeholder="Example: 2026-27"
+               required>
+
+        <br><br>
+
+        <label>Subjects</label>
+        <textarea name="subjects"
+                  placeholder="Enter subjects separated by comma"
+                  rows="4"
+                  required></textarea>
+
+        <br><br>
+
+        <label>Exam Center Preference</label>
+        <input type="text"
+               name="exam_center"
+               placeholder="Enter preferred exam center">
+
+        <br><br>
+
+        <label>Upload Previous Marksheet</label>
+        <input type="file"
+               name="marksheet"
+               accept=".pdf,.jpg,.jpeg,.png">
+
+        <br><br>
+
+        <label>Upload Photo</label>
+        <input type="file"
+               name="photo"
+               accept="image/*">
+
+        <br><br>
+
+        <label>
+            <input type="checkbox"
+                   name="declaration"
+                   class="declaration-checkbox"
+                   required>
+
+            I confirm that the information provided by me is correct.
+        </label>
+
+        <br><br>
+
+        <button type="submit">
+            Submit Examination Form
+        </button>
+
+    </form>
+
+    <br>
+
+    <p style="text-align:center;">
+
+        <a href="/">
+            ← Back to Home
+        </a>
+
+    </p>
+
+</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Register | Campus Cloud</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📝 Register</h1>
+
+    <form method="POST" class="register-form">
+
+        <input type="text"
+               name="name"
+               placeholder="Full Name"
+               required>
+
+        <br><br>
+
+        <input type="email"
+               name="email"
+               placeholder="Email"
+               required>
+
+        <br><br>
+
+        <input type="password"
+               name="password"
+               placeholder="Password"
+               required>
+
+        <br><br>
+
+        <input type="password"
+               name="confirm_password"
+               placeholder="Confirm Password"
+               required>
+
+        <br><br>
+
+        <label><strong>Register As</strong></label>
+
+        <br><br>
+
+        <select name="role"
+                id="role"
+                onchange="toggleFields()">
+
+            <option value="student">🎓 Student</option>
+
+            <option value="teacher">👨‍🏫 Teacher</option>
+
+            <option value="staff">👨‍💼 Staff</option>
+
+            <option value="admin">🔐 Admin</option>
+
+        </select>
+
+        <br><br>
+
+
+        <!-- Student Fields -->
+
+        <div id="studentFields"
+             class="role-fields">
+
+            <input type="text"
+                   name="college"
+                   placeholder="College Name">
+
+            <br><br>
+
+            <input type="text"
+                   name="course"
+                   placeholder="Course">
+
+            <br><br>
+
+            <input type="text"
+                   name="branch"
+                   placeholder="Branch">
+
+            <br><br>
+
+            <input type="text"
+                   name="semester"
+                   placeholder="Semester">
+
+            <br><br>
+
+            <input type="text"
+                   name="enrollment_no"
+                   placeholder="Enrollment Number">
+
+            <br><br>
+
+            <input type="text"
+                   name="parent_name"
+                   placeholder="Parent Name">
+
+            <br><br>
+
+            <input type="text"
+                   name="mobile"
+                   placeholder="Mobile Number">
+
+            <br><br>
+
+            <textarea
+                    name="address"
+                    placeholder="Address"></textarea>
+
+            <br><br>
+
+        </div>
+
+
+        <!-- Teacher Fields -->
+
+        <div id="teacherFields"
+             class="role-fields"
+             style="display:none;">
+
+            <input type="text"
+                   name="teacher_code"
+                   placeholder="Teacher Code">
+
+            <br><br>
+
+        </div>
+
+
+        <!-- Staff Fields -->
+
+        <div id="staffFields"
+             class="role-fields"
+             style="display:none;">
+
+            <input type="text"
+                   name="mobile"
+                   placeholder="Mobile Number">
+
+            <br><br>
+
+            <input type="text"
+                   name="address"
+                   placeholder="Address">
+
+            <br><br>
+
+        </div>
+
+
+        <!-- Admin Fields -->
+
+        <div id="adminFields"
+             class="role-fields"
+             style="display:none;">
+
+            <input type="password"
+                   name="admin_code"
+                   placeholder="Secret Admin Code">
+
+            <br><br>
+
+        </div>
+
+
+        <p class="password-info">
+
+            Password must contain:<br>
+
+            ✔ 8-20 Characters<br>
+
+            ✔ One Uppercase Letter<br>
+
+            ✔ One Lowercase Letter<br>
+
+            ✔ One Number<br>
+
+            ✔ One Special Character
+
+        </p>
+
+        <br>
+
+        <button type="submit">
+
+            Register
+
+        </button>
+
+    </form>
+
+    <br>
+
+    <p style="text-align:center;">
+
+        Already have an account?
+
+        <a href="/login">
+
+            Login Here
+
+        </a>
+
+    </p>
+
+</div>
+
+
+<script>
+
+function toggleFields(){
+
+    let role = document.getElementById("role").value;
+
+    // Hide all fields first
+
+    document.getElementById("studentFields").style.display = "none";
+
+    document.getElementById("teacherFields").style.display = "none";
+
+    document.getElementById("staffFields").style.display = "none";
+
+    document.getElementById("adminFields").style.display = "none";
+
+
+    // Student
+
+    if(role === "student"){
+
+        document.getElementById("studentFields").style.display = "block";
+
+    }
+
+
+    // Teacher
+
+    else if(role === "teacher"){
+
+        document.getElementById("teacherFields").style.display = "block";
+
+    }
+
+
+    // Staff
+
+    else if(role === "staff"){
+
+        document.getElementById("staffFields").style.display = "block";
+
+    }
+
+
+    // Admin
+
+    else if(role === "admin"){
+
+        document.getElementById("adminFields").style.display = "block";
+
+    }
+
+}
+
+
+window.onload = toggleFields;
+
+</script>
+
+</body>
+
+</html>
